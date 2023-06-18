@@ -1,10 +1,10 @@
 resource "vault_auth_backend" "userpass" {
-    type = "userpass"
+  type = "userpass"
 }
 
-resource "vault_generic_endpoint" "bob" {
+resource "vault_generic_endpoint" "christy" {
   depends_on           = [vault_auth_backend.userpass]
-  path                 = "auth/userpass/users/bob"
+  path                 = "auth/userpass/users/christy"
   ignore_absent_fields = true
 
   data_json = <<EOT
@@ -15,9 +15,9 @@ resource "vault_generic_endpoint" "bob" {
 EOT
 }
 
-resource "vault_generic_endpoint" "bob_token" {
-  depends_on     = [vault_generic_endpoint.bob]
-  path           = "auth/userpass/login/bob"
+resource "vault_generic_endpoint" "christy_token" {
+  depends_on     = [vault_generic_endpoint.christy]
+  path           = "auth/userpass/login/christy"
   disable_read   = true
   disable_delete = true
 
@@ -28,8 +28,8 @@ resource "vault_generic_endpoint" "bob_token" {
 EOT
 }
 #test
-resource "vault_generic_endpoint" "bob_entity" {
-  depends_on           = [vault_generic_endpoint.bob_token]
+resource "vault_generic_endpoint" "christy_entity" {
+  depends_on           = [vault_generic_endpoint.christy_token]
   disable_read         = true
   disable_delete       = true
   path                 = "identity/lookup/entity"
@@ -37,27 +37,31 @@ resource "vault_generic_endpoint" "bob_entity" {
   write_fields         = ["id"]
 
   data_json = jsonencode({
-    "alias_name": "bob",
-   "alias_mount_accessor": vault_auth_backend.userpass.accessor
+    "alias_name" : "christy",
+    "alias_mount_accessor" : vault_auth_backend.userpass.accessor
   })
 }
 
-resource "vault_generic_endpoint" "bob_entity_name" {
-  depends_on           = [vault_generic_endpoint.bob_entity]
+resource "vault_generic_endpoint" "christy_entity_name" {
+  depends_on           = [vault_generic_endpoint.christy_entity]
   disable_read         = true
   disable_delete       = true
-  path                 = "identity/entity/id/${vault_generic_endpoint.bob_entity.write_data["id"]}"
+  path                 = "identity/entity/id/${vault_generic_endpoint.christy_entity.write_data["id"]}"
   ignore_absent_fields = true
   write_fields         = ["id"]
 
   data_json = jsonencode({
-    "name": "bob"
+    "name" : "christy",
+    "policies" : "dev",
+    "metadata" : {
+      "team" : "dev"
+    }
   })
 }
 
-resource "vault_generic_endpoint" "ellen" {
+resource "vault_generic_endpoint" "sunil" {
   depends_on           = [vault_auth_backend.userpass]
-  path                 = "auth/userpass/users/ellen"
+  path                 = "auth/userpass/users/sunil"
   ignore_absent_fields = true
 
   data_json = <<EOT
@@ -68,9 +72,9 @@ resource "vault_generic_endpoint" "ellen" {
 EOT
 }
 
-resource "vault_generic_endpoint" "ellen_token" {
-  depends_on     = [vault_generic_endpoint.ellen]
-  path           = "auth/userpass/login/ellen"
+resource "vault_generic_endpoint" "sunil_token" {
+  depends_on     = [vault_generic_endpoint.sunil]
+  path           = "auth/userpass/login/sunil"
   disable_read   = true
   disable_delete = true
 
@@ -81,8 +85,8 @@ resource "vault_generic_endpoint" "ellen_token" {
 EOT
 }
 
-resource "vault_generic_endpoint" "ellen_entity" {
-  depends_on           = [vault_generic_endpoint.ellen_token]
+resource "vault_generic_endpoint" "sunil_entity" {
+  depends_on           = [vault_generic_endpoint.sunil_token]
   disable_read         = true
   disable_delete       = true
   path                 = "identity/lookup/entity"
@@ -90,34 +94,38 @@ resource "vault_generic_endpoint" "ellen_entity" {
   write_fields         = ["id"]
 
   data_json = jsonencode({
-    "alias_name": "ellen",
-   "alias_mount_accessor": vault_auth_backend.userpass.accessor
+    "alias_name" : "sunil",
+    "alias_mount_accessor" : vault_auth_backend.userpass.accessor
   })
-  
+
 }
 
-resource "vault_generic_endpoint" "ellen_entity_name" {
-  depends_on           = [vault_generic_endpoint.ellen_entity]
+resource "vault_generic_endpoint" "sunil_entity_name" {
+  depends_on           = [vault_generic_endpoint.sunil_entity]
   disable_read         = true
   disable_delete       = true
-  path                 = "identity/entity/id/${vault_generic_endpoint.ellen_entity.write_data["id"]}"
+  path                 = "identity/entity/id/${vault_generic_endpoint.sunil_entity.write_data["id"]}"
   ignore_absent_fields = true
   write_fields         = ["id"]
 
   data_json = jsonencode({
-    "name": "ellen"
+    "name" : "sunil",
+    "policies" : "manager",
+    "metadata" : {
+      "team" : "manager"
+    }
   })
 }
 
 resource "vault_identity_group" "manager" {
-  name                        = "manager"
-  type                        = "internal"
-  external_member_entity_ids  = true
+  name                       = "manager"
+  type                       = "internal"
+  external_member_entity_ids = true
 
 }
 
 resource "vault_identity_group_member_entity_ids" "manager-members" {
   exclusive         = true
-  member_entity_ids = [vault_generic_endpoint.ellen_entity.write_data["id"]]
+  member_entity_ids = [vault_generic_endpoint.sunil_entity.write_data["id"]]
   group_id          = vault_identity_group.manager.id
 }

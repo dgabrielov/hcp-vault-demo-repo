@@ -48,7 +48,7 @@ path "aws_root_keys/data/prod" {
     factor "authorizer" {
       identity {
         group_names = [ "manager" ]
-        approvals = 1
+        approvals = 2
       }
     }
   }
@@ -59,21 +59,54 @@ EOT
 
 resource "vault_rgp_policy" "control-group-self-auth" {
   name              = "control-group-self-auth"
-  enforcement_level = "soft-mandatory"
+  enforcement_level = "hard-mandatory"
 
   policy = <<EOT
+  import "time"
 import "controlgroup"
 
 control_group = func() {
-    controlgroup.authorizations as authz
-    if authz.entity == identity.entity.id {
-        return false
+    numAuthzs = 0
+    for controlgroup.authorizations as authz {
+        if "managers" in authz.groups.by_name {
+            if time.load(authz.time).unix > time.now.unix - 3600 {
+                numAuthzs = numAuthzs + 1
+            }
+        }
     }
-    return true
+    if numAuthzs >= 1 {
+      print(controlgroup.authorizations.entity.id)
+      print(identity.entity.id)
+        return true
+    }
+    return false
 }
 
 main = rule {
     control_group()
 }
 EOT
+
+
+  #   policy = <<EOT
+  # import "controlgroup"
+
+  # control_group = func() {
+  #   if controlgroup.authorizations.entity.id == identity.entity.id {
+  #     print("Entity Id for Authorisation and Access is the same")
+  #     print(controlgroup.authorizations.entity.id)
+  #     print(identity.entity.id)
+  #     return false
+  #   }
+  #   print("Entity Ids are different")
+  #   print(controlgroup.authorizations.entity.id)
+  #   print(identity.entity.id)
+  #   return true
+  # }
+
+
+  # main = rule {
+  #     control_group()
+  # }
+  # EOT
 }

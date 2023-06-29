@@ -1,4 +1,4 @@
-# HCP Vault Demo Repo
+# HCP Vault Cluster Setup
 
 This repo contains demos built around HCP Vault. This repo aims to assist with standing up your own HCP Vault environment, with a few configurations to automatically test other features and capabilities of HCP Vault. Note that the way this repo aims to be build, is that you can copy the _demo-func.tf_ file into any of the directories to combine features and do a single HCP Vault deployment.
 

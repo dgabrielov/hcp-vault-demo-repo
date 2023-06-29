@@ -27,14 +27,13 @@ This Repo will help you stand up the following:
 
 This repo was built with Terraform Cloud in mind, but Terraform OSS should operate fine as well.
 
-Ensure that you have created a [Service Principal](https://developer.hashicorp.com/hcp/docs/hcp/security/service-principals#create-a-service-principal) in HashiCorp Cloud Platform.
-
 You will need to set the following variables:
 
-| Name              | Location    |
-| ----------------- | ----------- |
-| HCP_CLIENT_ID     | provider.tf |
-| HCP_CLIENT_SECRET | provider.tf |
+| Name                 | Location         |
+| -------------------- | ---------------- |
+| org_name             | variables.tfvars |
+| vault_workspace_name | variables.tfvars |
+| workspace_name       | variables.tfvars |
 
 _Note: If you're using terraform variables, replace the value in the provider.tf file, otherwise set these as env variables_
 

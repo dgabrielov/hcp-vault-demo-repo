@@ -7,11 +7,6 @@ terraform {
   }
 }
 
-provider "hcp" {
-  # client_id = "insert-service-principal-key-client-id"
-  # client_secret = "insert-service-principal-key-client-secret"
-}
-
 provider "tfe" {}
 
 provider "vault" {

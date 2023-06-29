@@ -19,10 +19,10 @@ HashiCorp Vault Control groups add additional authorization factors to be requir
 
 This Repo will help you stand up the following:
 
-1x Vault Cluster
-3x Entities (Adam, Anna, Sam)
-3x Secret Paths (dev, test, prod)
-2x Policies (dev, manager)
+- 1x Vault Cluster
+- 3x Entities (Adam, Anna, Sam)
+- 3x Secret Paths (dev, test, prod)
+- 2x Policies (dev, manager)
 
 ## Installation
 

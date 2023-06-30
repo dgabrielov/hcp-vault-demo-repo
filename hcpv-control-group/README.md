@@ -7,8 +7,8 @@ This repo contains a HCP Vault Control Group Demo that aims to assist with stand
 - [Project Title](#project-title)
 - [Description](#description)
 - [Features](#features)
-- [Installation](#installation)
 - [Usage](#usage)
+- [Installation](#installation)
 - [Contributing](#contributing)
 
 ## Description
@@ -23,7 +23,7 @@ This Repo will help you stand up the following:
 - 3x Secret Paths (dev, test, prod)
 - 2x Policies (dev, manager)
 
-## Installation
+## Usage
 
 This repo was built with Terraform Cloud in mind, but Terraform OSS should operate fine as well.
 
@@ -37,9 +37,20 @@ You will need to set the following variables:
 
 _Note: If you're using terraform variables, replace the value in the provider.tf file, otherwise set these as env variables_
 
-## Usage
+## Installation
 
-TBC
+### Step 1 - Set variable values in the variables.tfvars file
+Ensure that you've changed the variable values in the .tfvars file. vault_workspace_name must indicate the workspace name that you've previously used to deploy the HCP Vault Cluster. Ensure that you set the same org_name and workspace_name values in the provider.tf file in the Cloud Block as well.
+
+### Step 2 - Initiase Terraform
+Run Terraform Init to initialise the workspace in your Terraform Cloud environment
+
+`terraform init`
+
+### Step 3 - Provisioning the Vault configuration with Terraform Apply
+Run Terraform Apply to enable terraform to initialise the provisioning of the vault configuration for your HCP Vault Cluster
+
+`terraform apply -var-file "variables.tfvars"`
 
 ## Contributing
 

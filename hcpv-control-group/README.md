@@ -52,7 +52,7 @@ Run Terraform Init to initialise the workspace in your Terraform Cloud environme
 ### Step 3 - Provisioning the Vault configuration with Terraform Apply
 Run Terraform Apply to enable terraform to initialise the provisioning of the vault configuration for your HCP Vault Cluster
 
-`terraform apply -var-file "variables.tfvars"`
+`terraform apply --auto-approve -var-file "variables.tfvars"`
 
 ## Contributing
 

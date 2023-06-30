@@ -40,7 +40,9 @@ _Note: If you're using terraform variables, replace the value in the provider.tf
 ## Installation
 
 ### Step 1 - Set variable values in the variables.tfvars file
-Ensure that you've changed the variable values in the .tfvars file. vault_workspace_name must indicate the workspace name that you've previously used to deploy the HCP Vault Cluster. Ensure that you set the same org_name and workspace_name values in the provider.tf file in the Cloud Block as well.
+Ensure that you've changed the variable values in the .tfvars file:
+- *vault_workspace_name* must indicate the workspace name that you've previously used to deploy the HCP Vault Cluster. 
+- *org_name* and *workspace_name* values in the provider.tf file should match the variables.tfvars values as well.
 
 ### Step 2 - Initialise Terraform
 Run Terraform Init to initialise the workspace in your Terraform Cloud environment

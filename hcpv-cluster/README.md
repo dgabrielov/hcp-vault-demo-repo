@@ -7,8 +7,8 @@ This repo contains demos built around HCP Vault. This repo aims to assist with s
 - [Project Title](#project-title)
 - [Description](#description)
 - [Features](#features)
-- [Installation](#installation)
 - [Usage](#usage)
+- [Installation](#installation)
 - [Contributing](#contributing)
 
 ## Description
@@ -21,7 +21,7 @@ This Repo will help you stand up the following:
 
 - 1x Vault Cluster
 
-## Installation
+## Usage
 
 This repo was built with Terraform Cloud in mind, but Terraform OSS should operate fine as well.
 
@@ -40,9 +40,17 @@ You will need to set the following variables:
 
 _Note: If you're using terraform variables, replace the value in the provider.tf file, otherwise set these as env variables_
 
-## Usage
+## Installation
 
-TBC
+### Step 1 - terraform init
+Initiative a Terraform Cloud Workspace
+
+`terraform init`
+
+### Step 2 - terraform apply
+Assuming that you've made all the variable changes as mentioned in Usage, next is to provision your HCP Vault cluster
+
+`terraform apply`
 
 ## Contributing
 

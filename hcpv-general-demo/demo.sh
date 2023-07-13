@@ -6,14 +6,14 @@ EPOCH=$(date +"%s")
 
 # Obtained using this guide. https://cloud.hashicorp.com/docs/hcp/access-control/service-principals
 # Needs admin role.
-HCP_CLIENT_ID=
-HCP_CLIENT_SECRET=
+HCP_CLIENT_ID=yhtyAfZVmuiwSmvLThyuGoFUBLGwOF3j
+HCP_CLIENT_SECRET=l1FtTmVNPnQSYyZn4BcjC4WvY8A4o_qo2YeBKVFLChQIUSapF722ZTNy_6CYNt1A
 
 # These aren't super obvious but appear in URL parameters in the Portal at https://cloud.hashicorp.com
 # The Organization ID will be in the URL of the accounts pages.
 # The Project ID on any cluster detail page.
-HCP_ORGANIZATION_ID=""
-HCP_PROJECT_ID=""
+HCP_ORGANIZATION_ID="028386f5-bc84-47b0-9880-e3e62196752f"
+HCP_PROJECT_ID="5594ca7c-efd8-4ba6-bdbb-007bcf95cd84"
 
 # Name of the HVN the cluster is in. This generally defaults to `hvn`,
 # but you may have changed it.

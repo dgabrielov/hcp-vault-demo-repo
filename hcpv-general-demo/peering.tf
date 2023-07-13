@@ -33,3 +33,13 @@ resource "aws_vpc_peering_connection_accepter" "peer" {
   vpc_peering_connection_id = hcp_aws_network_peering.dev.provider_peering_id
   auto_accept               = true
 }
+
+data "aws_route_table" "selected" {
+  route_table_id = module.vpc.public_route_table_ids[0]
+}
+
+resource "aws_route" "hcp" {
+  route_table_id            = data.aws_route_table.selected.route_table_id
+  destination_cidr_block    = data.tfe_outputs.hcpv-cluster.values.hvn-cidr-block
+  vpc_peering_connection_id = hcp_aws_network_peering.dev.provider_peering_id
+}

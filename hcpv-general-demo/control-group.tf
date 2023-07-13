@@ -294,20 +294,11 @@ path "sys/control-group/request" {
 }
 
 path "aws_root_keys/*" {
-  capabilities = ["list"]
+  capabilities = ["list", "read"]
 }
 
 path "aws_root_keys/data/prod" {
   capabilities = ["read"]
-
-  control_group = {
-    factor "authorizer" {
-      identity {
-        group_names = [ "manager" ]
-        approvals = 2
-      }
-    }
-  }
 }
 EOT
 

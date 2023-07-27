@@ -1,6 +1,6 @@
 variable "org_name" {
   type    = string
-  default = "samuellee-dev"
+  default = "dgtest1"
 }
 variable "vault_workspace_name" {
   type    = string
@@ -14,7 +14,7 @@ variable "workspace_name" {
 
 variable "db_username" {
   type = string
-  default = "samuellee"
+  default = "dgabr"
 }
 
 variable "db_password" {
@@ -24,7 +24,7 @@ variable "db_password" {
 
 variable "region" {
   type = string
-  default = "ap-southeast-2"
+  default = "us-west-1"
 }
 
 variable "db_name" {

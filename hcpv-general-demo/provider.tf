@@ -1,6 +1,6 @@
 terraform {
   cloud {
-    organization = "samuellee-dev"
+    organization = "dgtest1"
     workspaces {
       name = "hcpv-demo"
     }

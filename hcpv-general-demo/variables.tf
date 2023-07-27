@@ -29,4 +29,5 @@ variable "region" {
 
 variable "db_name" {
   description = "Unique name to assign to RDS instance"
+  default = "dgabr"
 }
